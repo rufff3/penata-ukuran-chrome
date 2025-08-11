@@ -1,50 +1,54 @@
 import pygetwindow as gw
 import time
 
-# --- KONFIGURASI TATA LETAK ---
-LEBAR_JENDELA   = 654
-TINGGI_JENDELA  = 1039
-POSISI_X_AWAL   = -7
-POSISI_Y_AWAL   = 0
-GESER_X         = 110
-GESER_Y         = 0
-JUMLAH_MAKSIMAL = 13
-# -----------------------------
+LEBAR_JENDELA_STATIS = 654
+TINGGI_JENDELA_STATIS = 1039
+POSISI_X_AWAL = -7
+JUMLAH_MAKSIMAL_ASLI = 13
+GESER_X_ASLI = 110
 
-def atur_tata_letak():
-    """
-    Menemukan dan mengatur jendela Chrome sesuai konfigurasi.
-    """
+def atur_tata_letak_presisi(jumlah_jendela_diminta):
     try:
+        lebar_total_pergeseran_asli = (JUMLAH_MAKSIMAL_ASLI - 1) * GESER_X_ASLI
+        if jumlah_jendela_diminta <= 1:
+            geser_x_dinamis = 0
+        else:
+            geser_x_dinamis = lebar_total_pergeseran_asli / (jumlah_jendela_diminta - 1)
+        GESER_X_BARU = int(geser_x_dinamis)
+        print(f"Untuk {jumlah_jendela_diminta} jendela, pergeseran presisi dihitung: {GESER_X_BARU}px")
         all_windows = gw.getWindowsWithTitle('Chrome')
-        
-        # Mengabaikan jendela 'helper' yang mungkin digunakan untuk pengukuran
         target_windows = [win for win in all_windows if win.title not in ("UKUR", "INFO")]
-        
         if not target_windows:
             print("Tidak ada jendela Chrome yang ditemukan untuk diatur.")
             return
-
-        print(f"Mengatur {min(len(target_windows), JUMLAH_MAKSIMAL)} dari {len(target_windows)} jendela Chrome...")
-        
+        jumlah_untuk_diatur = min(len(target_windows), jumlah_jendela_diminta)
+        print(f"Mengatur {jumlah_untuk_diatur} dari {len(target_windows)} jendela yang ditemukan...")
         for i, window in enumerate(target_windows):
-            if i >= JUMLAH_MAKSIMAL:
+            if i >= jumlah_untuk_diatur:
                 break
-            
             if window.isMinimized:
                 window.restore()
-
-            new_pos_x = POSISI_X_AWAL + (i * GESER_X)
-            new_pos_y = POSISI_Y_AWAL + (i * GESER_Y)
-            
-            window.resizeTo(LEBAR_JENDELA, TINGGI_JENDELA)
-            window.moveTo(new_pos_x, new_pos_y)
+                time.sleep(0.05)
+            new_pos_x = POSISI_X_AWAL + (i * GESER_X_BARU)
+            window.resizeTo(LEBAR_JENDELA_STATIS, TINGGI_JENDELA_STATIS) 
+            window.moveTo(new_pos_x, 0)
             time.sleep(0.05)
-
-        print("Pengaturan tata letak selesai.")
-
+        print(f"Pengaturan tata letak presisi telah selesai.")
     except Exception as e:
         print(f"Terjadi sebuah kesalahan: {e}")
-
+def dapatkan_input_pengguna():
+    while True:
+        try:
+            masukan = input("Masukkan jumlah jendela Chrome yang ingin diatur (antara 5-13): ")
+            jumlah = int(masukan)
+            if 5 <= jumlah <= 13:
+                return jumlah
+            else:
+                print("Input tidak valid. Harap masukkan angka antara 5 dan 13.")
+        except ValueError:
+            print("Input tidak valid. Harap masukkan sebuah angka.")
 if __name__ == "__main__":
-    atur_tata_letak()
+    print("--- SKRIP PENGATUR JENDELA (METODE PRESISI) ---")
+    jumlah_yang_diinginkan = dapatkan_input_pengguna()
+    atur_tata_letak_presisi(jumlah_yang_diinginkan)
+    input("\nTekan Enter untuk keluar...")
