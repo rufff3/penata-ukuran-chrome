@@ -1,48 +1,47 @@
+README - Skrip Pengatur Tata Letak Jendela Chrome (Metode Presisi)
+=================================================================
 
-Auto Window Tiler - Chrome Layout Organizer
-===========================================
-
-Script ini secara otomatis mengatur tata letak jendela Chrome di layar kamu berdasarkan konfigurasi posisi, ukuran, dan jumlah maksimum jendela. Cocok digunakan untuk pengujian otomatis, multi-login, atau workflow paralel menggunakan banyak instance Chrome.
-
-Fitur
------
-- Mengatur ukuran dan posisi hingga 15 jendela Chrome.
-- Mengabaikan jendela Chrome tertentu (misalnya jendela dengan judul 'UKUR' atau 'INFO').
-- Otomatis membuka kembali jendela jika diminimize.
-- Ukuran dan posisi dapat disesuaikan melalui konfigurasi.
-
-Cara Menggunakan
-----------------
-1. Install dependensi terlebih dahulu (jika belum):
-   pip install pygetwindow
-
-2. Jalankan script dengan Python:
-   python atur_tata_letak.py
-
-3. Pastikan jendela-jendela Chrome yang ingin diatur sudah dibuka sebelumnya.
-
-Konfigurasi
+Deskripsi:
 -----------
-Di bagian atas script, kamu bisa mengubah konfigurasi berikut:
+Skrip ini digunakan untuk mengatur tata letak beberapa jendela Google Chrome secara otomatis di layar. 
+Jendela akan diatur secara presisi dengan lebar, tinggi, dan jarak horizontal yang disesuaikan berdasarkan 
+jumlah jendela yang ingin diatur.
 
-LEBAR_JENDELA   = 654     # Lebar jendela Chrome
-TINGGI_JENDELA  = 1039    # Tinggi jendela Chrome
-POSISI_X_AWAL   = -7      # Posisi X awal dari jendela pertama
-POSISI_Y_AWAL   = 0       # Posisi Y awal dari jendela pertama
-GESER_X         = 110     # Perpindahan X antar jendela
-GESER_Y         = 0       # Perpindahan Y antar jendela
-JUMLAH_MAKSIMAL = 15      # Jumlah maksimal jendela yang akan diatur
-
-Contoh Output
+Fitur utama:
 -------------
-Mengatur 10 dari 10 jendela Chrome...
-Pengaturan tata letak selesai.
+- Mengatur posisi dan ukuran jendela Chrome secara otomatis.
+- Mendukung pengaturan antara 5 sampai 13 jendela.
+- Memastikan jendela yang diminimize akan dikembalikan (restore) sebelum diatur.
+- Menyesuaikan jarak antar jendela secara dinamis agar rapi dan tidak tumpang tindih.
 
-Catatan
--------
-- Script ini hanya bekerja pada Windows OS karena menggunakan pygetwindow yang berbasis Win32 API.
-- Judul jendela Chrome harus mengandung kata 'Chrome' (case-sensitive).
+Persyaratan:
+-------------
+- Python 3.x
+- Modul Python `pygetwindow` (bisa diinstall via pip: pip install pygetwindow)
+- Sistem operasi dengan dukungan manajemen jendela (biasanya Windows/Linux dengan GUI)
 
-Lisensi
--------
-Proyek ini bebas digunakan untuk keperluan pribadi atau produktivitas. Tidak untuk dijual kembali dalam bentuk apapun.
+Cara menjalankan:
+-----------------
+1. Pastikan semua jendela Chrome yang ingin diatur sudah terbuka.
+2. Jalankan skrip dengan perintah: `python nama_script.py`
+3. Masukkan jumlah jendela Chrome yang ingin diatur ketika diminta (minimal 5, maksimal 13).
+4. Skrip akan otomatis mengatur ukuran dan posisi jendela-jendela tersebut.
+5. Tekan Enter untuk keluar setelah selesai.
+
+Variabel konfigurasi utama:
+----------------------------
+- LEBAR_JENDELA_STATIS: Lebar jendela Chrome dalam piksel (default 654).
+- TINGGI_JENDELA_STATIS: Tinggi jendela Chrome dalam piksel (default 1039).
+- POSISI_X_AWAL: Posisi horizontal awal jendela paling kiri (default -7).
+- JUMLAH_MAKSIMAL_ASLI: Jumlah maksimal jendela default untuk referensi jarak (default 13).
+- GESER_X_ASLI: Jarak geser horizontal default antar jendela (default 110 px).
+
+Catatan:
+---------
+- Skrip hanya mengatur jendela yang berjudul mengandung "Chrome".
+- Pastikan jendela Chrome tidak dalam kondisi minimize untuk hasil terbaik (meskipun skrip akan restore).
+- Rentang jumlah jendela yang bisa diatur dibatasi antara 5 sampai 13 untuk menjaga tata letak tetap rapi.
+
+Lisensi:
+---------
+Skrip ini dibagikan secara bebas untuk penggunaan pribadi dan edukasi.
