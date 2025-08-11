@@ -48,7 +48,8 @@ def dapatkan_input_pengguna():
         except ValueError:
             print("Input tidak valid. Harap masukkan sebuah angka.")
 if __name__ == "__main__":
-    print("--- SKRIP PENGATUR JENDELA (METODE PRESISI) ---")
+    print("--- PENATA CHROME ---")
     jumlah_yang_diinginkan = dapatkan_input_pengguna()
     atur_tata_letak_presisi(jumlah_yang_diinginkan)
     input("\nTekan Enter untuk keluar...")
+
