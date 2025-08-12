@@ -33,23 +33,22 @@ def atur_tata_letak_presisi(jumlah_jendela_diminta):
             window.resizeTo(LEBAR_JENDELA_STATIS, TINGGI_JENDELA_STATIS) 
             window.moveTo(new_pos_x, 0)
             time.sleep(0.05)
-        print(f"Pengaturan tata letak presisi telah selesai.")
+        print("selesai.")
     except Exception as e:
         print(f"Terjadi sebuah kesalahan: {e}")
 def dapatkan_input_pengguna():
-    while True:
-        try:
-            masukan = input("Masukkan jumlah jendela Chrome yang ingin diatur (antara 5-13): ")
-            jumlah = int(masukan)
-            if 5 <= jumlah <= 13:
-                return jumlah
-            else:
-                print("Input tidak valid. Harap masukkan angka antara 5 dan 13.")
-        except ValueError:
-            print("Input tidak valid. Harap masukkan sebuah angka.")
+    try:
+        masukan = input("Masukkan jumlah jendela Chrome yang ingin diatur (min 5 dan maks 13): ")
+        jumlah = int(masukan)
+        if 5 <= jumlah <= 13:
+            return jumlah
+        else:
+            print("Input tidak valid. Harap masukkan angka antara 5 dan 13.")
+            exit()
+    except ValueError:
+        print("Input tidak valid. Harap masukkan sebuah angka.")
+        exit()
 if __name__ == "__main__":
-    print("--- PENATA CHROME ---")
+    print("---PENATA ---")
     jumlah_yang_diinginkan = dapatkan_input_pengguna()
     atur_tata_letak_presisi(jumlah_yang_diinginkan)
-    input("\nTekan Enter untuk keluar...")
-
